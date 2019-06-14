@@ -1,4 +1,5 @@
 const fs = require('fs-jetpack')
+const paramCase = require('param-case')
 
 module.exports = class Migrator {
 	constructor({ client, path = './migrations', quiet = false }) {
@@ -81,5 +82,18 @@ module.exports = class Migrator {
 		if (!hasExecuted) {
 			this.log("No migrations to roll back")
 		}
+	}
+
+	async generate(name, path = this._path) {
+		const now = Date.now()
+		const outname = `${ now }-${ paramCase(name) }`
+
+		const outdir = fs.dir(path).dir(name)
+
+		const up = '-- Code to execute when migrating the schema'
+		const down = '-- Code to execute when rolling back the schema'
+
+		await outdir.fileAsync('up.sql', { content: up })
+		await outdir.fileAsync('down.sql', { content: down })
 	}
 }
