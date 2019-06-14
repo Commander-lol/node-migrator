@@ -1,0 +1,9 @@
+{
+	"extends": [
+		"@bark",
+		"plugin:node/recommended"
+	],
+	"env": {
+		"node": true
+	}
+}

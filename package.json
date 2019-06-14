@@ -4,7 +4,8 @@
   "description": "Simple raw database migrations from inside the app",
   "main": "migrator.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --quiet migrator.js"
   },
   "keywords": [
     "migrations",
@@ -16,5 +17,10 @@
   "dependencies": {
     "fs-jetpack": "^2.2.2",
     "param-case": "^2.1.1"
+  },
+  "devDependencies": {
+    "@bark/eslint-config": "^0.1.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-node": "^9.1.0"
   }
 }
