@@ -2,7 +2,7 @@ const fs = require('fs-jetpack')
 const paramCase = require('param-case')
 
 module.exports = class Migrator {
-	constructor({ client, path = './migrations', quiet = false }) {
+	constructor({ client, path = './migrations', quiet = false } = {}) {
 		this._client = client
 		this._path = path
 		this._quiet = quiet
@@ -88,7 +88,7 @@ module.exports = class Migrator {
 		const now = Date.now()
 		const outname = `${ now }-${ paramCase(name) }`
 
-		const outdir = fs.dir(path).dir(name)
+		const outdir = fs.dir(path).dir(outname)
 
 		const up = '-- Code to execute when migrating the schema'
 		const down = '-- Code to execute when rolling back the schema'
