@@ -1,0 +1,19 @@
+{
+  "name": "@commander-lol/migrator",
+  "version": "1.0.0",
+  "description": "Simple raw database migrations from inside the app",
+  "main": "migrator.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "migrations",
+    "database",
+    "postgres"
+  ],
+  "author": "Louis Capitanchik <contact@louiscap.co>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "fs-jetpack": "^2.2.2"
+  }
+}
