@@ -20,13 +20,13 @@ module.exports = class Migrator {
 		const migrationDir = fs.dir(path)
 		await this._client.query('CREATE TABLE IF NOT EXISTS _hnt_mgr ( "name" TEXT PRIMARY KEY UNIQUE, "at" timestamptz NOT NULL default now() )')
 		const { rows } = await this._client.query('select "name" from _hnt_mgr')
-		const migrations = migrationDir.list()
+		const migrations = await migrationDir.listAsync()
 		let hasExecuted = false
 	
 		for (const migrationName of migrations) {
 			const missing = !rows.find(row => row.name === migrationName)
 			if (missing) {
-				const content = fs.read(migrationDir.path(migrationName, 'up.sql'))
+				const content = await fs.readAsync(migrationDir.path(migrationName, 'up.sql'))
 				await this._client.query('BEGIN')
 				this.log("---")
 				this.log(`Migrating ${ migrationName }`)
@@ -54,13 +54,13 @@ module.exports = class Migrator {
 		const migrationDir = fs.dir(path)
 		await this._client.query('CREATE TABLE IF NOT EXISTS _hnt_mgr ( "name" TEXT PRIMARY KEY UNIQUE, "at" timestamptz NOT NULL default now() )')
 		const { rows } = await this._client.query('select "name" from _hnt_mgr ORDER BY "at" DESC')
-		const migrations = migrationDir.list()
+		const migrations = await migrationDir.listAsync()
 		let hasExecuted = false
 	
 		for (const row of rows) {
 			const migrationName = migrations.find(migrationName => row.name === migrationName)
 			if (migrationName != null) {
-				const content = fs.read(migrationDir.path(migrationName, 'down.sql'))
+				const content = await fs.readAsync(migrationDir.path(migrationName, 'down.sql'))
 				await this._client.query('BEGIN')
 				this.log("---")
 				this.log(`Rolling back ${ migrationName }`)
