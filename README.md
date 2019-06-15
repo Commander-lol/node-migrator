@@ -10,7 +10,7 @@
 ## Usage
 
 ```js
-const Migrator = require('migrator')
+const Migrator = require('@commander-lol/migrator')
 const migrator = new Migrator({
     client: getClient(),
     path: 'path/to/migrations',
