@@ -58,7 +58,7 @@ module.exports = class Migrator {
 		let hasExecuted = false
 
 		for (const row of rows) {
-			const migrationName = migrations.find(migrationName => row.name === migrationName)
+			const migrationName = migrations.find(name => row.name === name)
 			if (migrationName != null) {
 				const content = await fs.readAsync(migrationDir.path(migrationName, 'down.sql'))
 				await this._client.query('BEGIN')
